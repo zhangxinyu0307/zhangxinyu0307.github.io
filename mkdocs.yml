@@ -1,6 +1,6 @@
-site_name: 我的课程博客
-site_url: https://zhangxinyu0307.github.io/
+site_name: 个人博客
 nav:
   - 首页: index.md
   - 第一篇文章: article1.md
-theme: readthedocs
+theme:
+  name: readthedocs
