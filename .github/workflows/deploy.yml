@@ -1,14 +1,23 @@
-name: Deploy Blog
+name: Deploy MkDocs Blog
 on:
   push:
     branches: [ main ]
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout source code
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install mkdocs mkdocs-material
-      - run: mkdocs gh-deploy --force
+      - name: Install MkDocs
+        run: pip install mkdocs mkdocs-readthedocs
+      - name: Build static site
+        run: mkdocs build
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
